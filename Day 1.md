@@ -13,3 +13,6 @@
 4. **Clock Tree Synthesis (CTS)** - building and optimizing the clock distribution network. **Main Objectives**: minimize clock skew (difference in arrival times of the clock at different parts of the chip) and minimize clock latency (time it takes for the clock signal to get from the source to components). Buffers and inverters are inserted to distribute the clock signal and various different types of structures can be used depending on the design goals (H-tree, X-tree, mesh, etc.).
 
 5. **Routing** - interconnections between the components are done here. This is done through the usage of multiple metal layers in which each of these layers form physical wiring paths across the chip. This is defined within a Process Design Kit (PDK). 
+
+
+## OpenLANE Commands + Navigation
