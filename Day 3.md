@@ -117,13 +117,18 @@ Finally, the entire thing is placed inside a furnace, diffusing both wells.
 ![tkcon1](https://github.com/user-attachments/assets/80daaddf-64fd-48e3-a537-0003a5df82ba)
 Go into the terminal directory and run **vim sky130_inv.spice**
 ![spice_director](https://github.com/user-attachments/assets/84a4a3e5-1427-45aa-97cd-4b31b1aec7e1)
+
+This is what should appear:
+
 ![spice_netlist](https://github.com/user-attachments/assets/5a9d893b-5546-45e7-92b3-99c1cd5cb807)
 ## Sky130 Tech File Labs
 ### Create Final SPICE Deck
 Modify the **sky130_inv.ext** file as shown below.
+
 ![sky130invext_modified](https://github.com/user-attachments/assets/d385ac22-96c8-4dbb-adaf-b58bb98dd408)
 
 Start up NGSPICE and load the SPICE file for simulation:
+
 ![ngspice_load](https://github.com/user-attachments/assets/eb8033b5-954e-4c12-b2b0-b8eae073940b)
 
 
