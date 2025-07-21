@@ -23,9 +23,15 @@
 
 ![softwareapp_hardware-flow](https://github.com/user-attachments/assets/44a56fec-9d5f-4267-9448-ee961500cb93)
 
+## System on Chip Design with OpenLANE
 
+**Application Specific IC (ASIC) Digital Design**: 
+* HDLs and RTL IPs
+* **EDA Tools** - automate key steps like synthesis, floorplanning, placement, etc.
+* **Process Design Kit (PDK)** - set of files that describe the fabrication process with design rules, standard cells, I/O libraries, etc. It is an essential interface between chip deisgners and the fab.
+* **Fabrication Separation** - fabless companies focus only on design, pure-play foundries handle manufacturing. 
 
-## RTL To GDSII Flow
+### RTL To GDSII Flow
 
 **RTL (Register Transfer Level)** - describes the logic behavior/data flow and writes the design in a hardware description language (HDL).
 
