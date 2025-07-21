@@ -54,5 +54,5 @@ OpenLANE is an open-source toolchain that takes RTL and makes it into a chip lay
 * StriVe - SoC family
 * Tuned for the SkyWater 130nm PDK
 * Run Modes:
-*   Autonomous - fully automated design flow
-*   Interactive - manual control for custom tuning
+* * Autonomous - fully automated design flow
+* * Interactive - manual control for custom tuning
