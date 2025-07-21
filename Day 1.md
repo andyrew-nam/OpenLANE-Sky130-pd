@@ -74,14 +74,28 @@ OpenLANE is an open-source toolchain that takes RTL and makes it into a chip lay
 
 Begin by opening the virtual machine and then open terminal. 
 
-1. All the files are stored in Desktop/work/tools
-2. Navigate to openlane_working_dir
-3. Go into the pdks
+1. All the files are stored in **Desktop/work/tools**
+2. Navigate to **openlane_working_dir**
+3. Go into the **pdks**
 4. Enter sky130A and open up libs.ref. If you do ls -ltr when in the sky130A directory, you will notice there are two files. Libs.tech contains all of the tool specific files while libs.ref contains all of the foundry related processes.
-5. Do ls -ltr while in the libs.ref directory. We will be working with sky130_fd_sc_hd.
+5. Do **ls -ltr** while in the libs.ref directory. We will be working with sky130_fd_sc_hd.
 
+Here are all of the steps done:
 ![openlane_ss1](https://github.com/user-attachments/assets/4010ec20-de47-4882-9bb4-bd25fb45f765)
 
+### Design Preparation (Note: all of the instructions will be done from a Mac perspective)
 
+1. Run **./flow.tcl -interactive** in the OpenLANE directory
+2. Run **package require openlane 0.9** to load the necessary package. This step must be dont everytime OpenLANE is reopened.
+3. Run **prep -design designs/ci/picorv32a** to make a place where Openlane can store the results. 
+![openlane_ss4](https://github.com/user-attachments/assets/fbb3ac47-3579-4a2e-8bf9-645757409f24)
+4. Then do **run_synthesis** to do synthesis. 
+![openlane_ss9](https://github.com/user-attachments/assets/afe3a38f-dbde-4955-
+5. Then go check the synthesis reports to calculate the flop ratio.
+![openlane_ss11](https://github.com/user-attachments/assets/2e31f980-4a39-4d30-9404-c1e579289b2b)
+90f8-2a1a2e141439)
+6. Look at the results and calculate the flop ratio.
+![openlane_ss12](https://github.com/user-attachments/assets/a419d79c-cb05-4acc-9232-8644b3a89365)
 
-
+Flop ratio: 1596/9819 = 0.16254201038
+DFF % = 0.16254201038 * 100 = 16.254201038 %
