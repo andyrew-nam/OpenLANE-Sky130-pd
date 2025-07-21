@@ -16,24 +16,10 @@
 * Open-source Instruction Set Architecture (ISA) - defines how software communicates with hardware. 
 * An ISA defines the rules/instructions that a compiler must follow in order to translate high-level programming (like C) into assembly/machine code. 
 
-
-
-
-
-
-🔹 Key Features
-Modular: You can start with a small core (like for microcontrollers) and add only the features you need (e.g., floating point, vector processing).
-
-Simple and Clean: Designed to be easy to implement and understand.
-
-Scalable: Works for tiny chips up to supercomputers.
-
-🔹 Who Uses RISC-V?
-Major companies (like NVIDIA, Google, Western Digital, and Alibaba) and universities use RISC-V to build everything from embedded devices to high-performance chips.
-
-🔹 Why It’s a Game-Changer
-RISC-V is democratizing chip design—making it possible for individuals, startups, and nations to build custom hardware without relying on dominant, closed systems. It’s helping fuel a new wave of innovation in computing.
-
+## Software to Hardware Flow
+1. **Application Software** - The program/app that a user wants to write or run. These programs are human-readable so that its easy to describe complex logic and algorithms (using high-level code).
+2. **System Software** - bridges the high-level program to the physical hardware. Includes the **Operating System** (manages tasks like memory allocation and device communication so that the program can run smoothly), the **Compiler** (translates the high-level code to assembly/machine language using the ISA), and the **Assembler** (converts assembly code into actual binary machine code).
+3. **Hardware** - The CPU and supporting hardware load the binary and begin execution.   
 
 
 ## RTL To GDSII Flow
