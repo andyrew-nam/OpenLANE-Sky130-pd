@@ -54,7 +54,7 @@ This command will set the mode of the IO pins to 2 which allows them to overlap 
 1. On the openlane directory (/openlane), do **git clone https://github.com/nickson-jose/vsdstdcelldesign**
 2. Make a copy of sky130A.tech file to the vsdstd cell design directory using the **cp** command.
 3. Do **magic -T sky130A.tech sky130_inv.mag &** in order to get a visual.
-
+![inverter_visual](https://github.com/user-attachments/assets/9371a38c-05d7-41c4-828e-a46691b085c7)
 ## CMOS Fabrication Process
 1. **Select a substrate** - where the design will be fabricated on. P doped silicon substrate is most commonly used but the substrate type can vary based on the intended application and design requirements.
 2. **Create an Active Region** - grow 40nm of silicon dioxide on the substrate as an insulator. Then put 80nm of silicon nitride onto the insulator and then 1 micrometer of photoresist on top. 
@@ -114,9 +114,17 @@ Finally, the entire thing is placed inside a furnace, diffusing both wells.
 * **extract all** - will extract to the location of the .inv file
 * **ext2 spice cthres 0 rthres 0** - extracts parasitic info
 * **ext2spice** - makes the SPICE file
+![tkcon1](https://github.com/user-attachments/assets/80daaddf-64fd-48e3-a537-0003a5df82ba)
+Go into the terminal directory and run **vim sky130_inv.spice**
+![spice_director](https://github.com/user-attachments/assets/84a4a3e5-1427-45aa-97cd-4b31b1aec7e1)
+![spice_netlist](https://github.com/user-attachments/assets/5a9d893b-5546-45e7-92b3-99c1cd5cb807)
+## Sky130 Tech File Labs
+### Create Final SPICE Deck
+Modify the **sky130_inv.ext** file as shown below.
+![sky130invext_modified](https://github.com/user-attachments/assets/d385ac22-96c8-4dbb-adaf-b58bb98dd408)
 
-
-
+Start up NGSPICE and load the SPICE file for simulation:
+![ngspice_load](https://github.com/user-attachments/assets/eb8033b5-954e-4c12-b2b0-b8eae073940b)
 
 
 
