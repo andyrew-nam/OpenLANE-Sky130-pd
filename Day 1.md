@@ -21,7 +21,7 @@
 2. **System Software** - bridges the high-level program to the physical hardware. Includes the **Operating System** (manages tasks like memory allocation and device communication so that the program can run smoothly), the **Compiler** (translates the high-level code to assembly/machine language using the ISA), and the **Assembler** (converts assembly code into actual binary machine code).
 3. **Hardware** - The CPU and supporting hardware load the binary and begin execution.
 
-<img width="1315" height="732" alt="image" src="https://github.com/user-attachments/assets/486c3635-1563-4894-a5b7-aa22722c5f71" />
+![softwareapp_hardware-flow](https://github.com/user-attachments/assets/44a56fec-9d5f-4267-9448-ee961500cb93)
 
 
 
