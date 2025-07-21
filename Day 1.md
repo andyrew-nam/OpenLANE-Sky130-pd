@@ -90,9 +90,7 @@ Here are all of the steps done:
 3. Run **prep -design designs/ci/picorv32a** to make a place where Openlane can store the results. 
 ![openlane_ss4](https://github.com/user-attachments/assets/fbb3ac47-3579-4a2e-8bf9-645757409f24)
 4. Then do **run_synthesis** to do synthesis. 
-
-![openlane_ss9](https://github.com/user-attachments/assets/afe3a38f-dbde-4955-
-
+![openlane_ss9](https://github.com/user-attachments/assets/2446e3ca-41bc-450a-bfef-23232cb19fd8)
 5. Then go check the synthesis reports to calculate the flop ratio.
 ![openlane_ss11](https://github.com/user-attachments/assets/2e31f980-4a39-4d30-9404-c1e579289b2b)
 90f8-2a1a2e141439)
