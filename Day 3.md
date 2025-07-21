@@ -61,7 +61,7 @@ This command will set the mode of the IO pins to 2 which allows them to overlap 
 ![active_region1](https://github.com/user-attachments/assets/b93f1955-f197-471d-b951-5349c9ca0182)
 Then put a mask-1 layer on top of the photoresist in locations where you don't want to get hit by the UV light. 
 ![active_region2](https://github.com/user-attachments/assets/2ba67a2f-3ffe-4f40-8646-472991052afc)
-Thne the UV light is applied to remove the layers on the unmasked areas. Then remove mask-1, etch off the open silicon nitride, and rmeove the photoresist. By putting the chip in an oxdiation furnace, the oxide will grow in the other areas. Finally, remove the silicone nitride layer using phosporic acid to have the remains of p-substrate and silicon dioxide.
+Then the UV light is applied to remove the layers on the unmasked areas. Then remove mask-1, etch off the open silicon nitride, and rmeove the photoresist. By putting the chip in an oxdiation furnace, the oxide will grow in the other areas. Finally, remove the silicone nitride layer using phosporic acid to have the remains of p-substrate and silicon dioxide.
 3. **Formation of N-well and P-well** - place another layer of photoresist on the chip then use another mask to only cover half of the substrate. Then put boron on top of everything so that only the uncovered part of the substrate has a P-well. 
 ![cmos_p-well](https://github.com/user-attachments/assets/f3ec425f-2382-42d8-acd1-95bc483074b9)
 Then do the same exact process, but cover the P-well and isolate the other side, implant it with Phosphorus ions to create an N-well on the other side. 
@@ -75,7 +75,73 @@ Finally, the entire thing is placed inside a furnace, diffusing both wells.
 * Then dope ions into each half of the substrate, but use much lower energy ions for each respective well. In order to fix the oxide that is damaged by the implantation of ions, the extra silicon dioxide is removed using hydrofluoric acid, then regrown using silicon dioxide on the p-substrate to control the next occuring oxide thickness.
 * Then grow a polysilicon layer.
 * Mask-6 is added and etch using photolithography.
-* Mask-6 is etched off to form the gate terminal. 
+* Mask-6 is etched off to form the gate terminal.
+![cmos_formation_of_gate](https://github.com/user-attachments/assets/d9ca6a94-7c1d-4c5d-b543-85255b92d737)
+5. **Lightly Doped Drain (LDD) Formation**:
+* Mask 7 is used for NMOS while mask 8 is used for PMOS.
+* Heavily doped impurities of N+ for NMOS and P+ for PMOS are added for the source and drain. The lightly doped impurity is only needed to help space the source and drain.
+* Silicon dioxide protects the lightly doped regions. 
+![cmos_LDD](https://github.com/user-attachments/assets/3f6dd1af-2fbf-4064-ae9d-44a6aaf5299a)
+6. **Source and Drain Formation**:
+* Thin screen of silicon oxide avoids channeling (when implanatations dig too deep into substrates)
+* Mask-9 for N+ implantation and Mask-10 for P+ implantation
+![cmos_source_drain](https://github.com/user-attachments/assets/6eea173e-57b4-4288-a954-0957811431d8)
+* High temperature annealing by putting it into a high-temperature furnace. 
+![cmos_source_drain_furnace](https://github.com/user-attachments/assets/fa67db50-f767-4761-9f46-f63d5a410481)
+7. **Local Interconnect Formation**:
+* Thin silicon oxide is removed to open up the source, drain, and gate.
+* Use titanium for low resistance.
+* Titatium diselenide is used as the local interconnects and heat it in an N2 ambient.
+* Mask-11 is formed and titanium nitride is etched off using RCA Cleaning.
+![cmos_rca_cleaning](https://github.com/user-attachments/assets/3c1b7810-d7ad-4d2f-b164-e5efbf7c0934)
+* Removing the rest of photoresist leaves you with titanium nitride local interconnects.
+8. **Higher Level Metal Formation**:
+* Leave silicon dioxide doped with boron or phosphorus on the wafer.
+* Surface is polished with chemical mechanical polishing (CMP).
+* Photolithography creates contact holes.
+![cmos_contact_holes](https://github.com/user-attachments/assets/59bee8a6-2011-44c3-8086-e599be18415f)
+* Mask-12 = first contact holes
+* Mask-13 = first Aluminum contact layer
+* Mask-14 = second contact holes
+* Mask-15 = second Alumnium contact layer
+* Mask-16 = making contact to topmost layer
+![cmos_final_masks](https://github.com/user-attachments/assets/efcf6db8-e37c-4b9e-b80b-dcd3b646b437)
+## Lab Introduction to Sky130 Basic Layers Layout and LEF Using Inverter
+* Use **what** in tkcon to get specific details on things.
+* Use **s** to see what components a component is connected to.
+## Lab Steps to Create STD Cell Layout and Extract SPICE Netlist
+**SPICE extraction of custom inverter layout**:
+* **extract all** - will extract to the location of the .inv file
+* **ext2 spice cthres 0 rthres 0** - extracts parasitic info
+* **ext2spice** - makes the SPICE file
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
