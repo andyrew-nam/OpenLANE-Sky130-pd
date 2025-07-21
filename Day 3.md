@@ -9,4 +9,77 @@ This command will set the mode of the IO pins to 2 which allows them to overlap 
 ## SPICE Deck Creation for CMOS Inverter
 
 **SPICE Deck**: A text file that contains a netlist (list of circuit components and how they're connected), the TAPS points for the outputs, and the inputs that needed to be provided. 
+* Values: length and width of both types (PMOS and NMOS) of transistors. Ideally, the PMOS should be 2-3 times wider than the NMOS to balance their drive strengths and achieve symmetrical switching behavior.
+
+## SPICE Simulation Lab for CMOS Inverter
+
+* **.op** - starts the simulation with a voltage sweep
+* **Model file** holes process-specific data for 0.25 micrometer NMOS/PMOS
+![spice_deck](https://github.com/user-attachments/assets/8106c80b-f20f-44f1-a494-18db2f355ff9)
+
+### SPICE Simulation:
+* Open NGSPICE
+* Source the circuit file with **source <filename>**
+* Use **run** to run the simulation
+* Use **setplot** to choose the simulation type
+* Use **display** to view nodes and plot out on a graph.
+![spice_display](https://github.com/user-attachments/assets/08ebed3e-28f2-4d2c-b176-54c52e68fa4b)
+
+## Switching Threshold Vm
+
+**Switching Threshold**:
+* Vin = Vout --> point where both NMOS and PMOS are at saturation.
+* When these are turned on, it causes short-circuit current --> direct Vdd to GND leakage
+  
+**Propagation Delay**: time it takes for the output to switch after the input switches.
+
+## Static and Dynamic Simulation of CMOS Inverter
+
+**DC Transfer Analysis**
+* **.dc Vin 0 2.5 0.05** - looks for the input gate voltage for values from 0-2.5V at increments of 0.05V
+* DC Transfer Analysis done to find Vm
+* Transient analysis done to find propagation delay of when a pulse is applied to the CMOS.
+![spice_dynamic_sim](https://github.com/user-attachments/assets/66e3d379-47d6-4b40-8837-4c0a514bcfda)
+
+**Steps to do the transient analysis:**
+1. **Source** file again
+2. **run** again
+3. **setplot** again
+4. **tran2** after the question mark
+5. **display** to see options
+6. **plot out vs time in** for replot
+![transient_analysis_spice](https://github.com/user-attachments/assets/7b0d104a-bb24-4a14-8242-c5d06ebabdae)
+
+## Lab Steps to GitClone VSDSTD Cell Design
+1. On the openlane directory (/openlane), do **git clone https://github.com/nickson-jose/vsdstdcelldesign**
+2. Make a copy of sky130A.tech file to the vsdstd cell design directory using the **cp** command.
+3. Do **magic -T sky130A.tech sky130_inv.mag &** in order to get a visual.
+
+## CMOS Fabrication Process
+1. **Select a substrate** - where the design will be fabricated on. P doped silicon substrate is most commonly used but the substrate type can vary based on the intended application and design requirements.
+2. **Create an Active Region** - grow 40nm of silicon dioxide on the substrate as an insulator. Then put 80nm of silicon nitride onto the insulator and then 1 micrometer of photoresist on top. 
+![active_region1](https://github.com/user-attachments/assets/b93f1955-f197-471d-b951-5349c9ca0182)
+Then put a mask-1 layer on top of the photoresist in locations where you don't want to get hit by the UV light. 
+![active_region2](https://github.com/user-attachments/assets/2ba67a2f-3ffe-4f40-8646-472991052afc)
+Thne the UV light is applied to remove the layers on the unmasked areas. Then remove mask-1, etch off the open silicon nitride, and rmeove the photoresist. By putting the chip in an oxdiation furnace, the oxide will grow in the other areas. Finally, remove the silicone nitride layer using phosporic acid to have the remains of p-substrate and silicon dioxide.
+3. **Formation of N-well and P-well** - place another layer of photoresist on the chip then use another mask to only cover half of the substrate. Then put boron on top of everything so that only the uncovered part of the substrate has a P-well. 
+![cmos_p-well](https://github.com/user-attachments/assets/f3ec425f-2382-42d8-acd1-95bc483074b9)
+Then do the same exact process, but cover the P-well and isolate the other side, implant it with Phosphorus ions to create an N-well on the other side. 
+![cmos_n-well](https://github.com/user-attachments/assets/5cd56f28-8552-41fd-852e-717841e67993)
+Finally, the entire thing is placed inside a furnace, diffusing both wells. 
+![cmos_furnace](https://github.com/user-attachments/assets/8b334aab-bbb6-4921-98f8-46ea88787b8a)
+4. **Formation of Gate Terminal** - the gate terminal is where the threshold voltage is controlled.
+![threshold_voltage_math](https://github.com/user-attachments/assets/e61c89d3-f6ac-4dbb-a66d-b33f7076a85b)
+* Leave photoresist layers on the areas to be protected, then put mask-4 on top.
+* Apply UV light.
+* Then dope ions into each half of the substrate, but use much lower energy ions for each respective well. In order to fix the oxide that is damaged by the implantation of ions, the extra silicon dioxide is removed using hydrofluoric acid, then regrown using silicon dioxide on the p-substrate to control the next occuring oxide thickness.
+* Then grow a polysilicon layer.
+* Mask-6 is added and etch using photolithography.
+* Mask-6 is etched off to form the gate terminal. 
+
+
+
+
+
+
 
