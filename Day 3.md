@@ -15,6 +15,7 @@ This command will set the mode of the IO pins to 2 which allows them to overlap 
 
 * **.op** - starts the simulation with a voltage sweep
 * **Model file** holes process-specific data for 0.25 micrometer NMOS/PMOS
+
 ![spice_deck](https://github.com/user-attachments/assets/8106c80b-f20f-44f1-a494-18db2f355ff9)
 
 ### SPICE Simulation:
@@ -23,6 +24,7 @@ This command will set the mode of the IO pins to 2 which allows them to overlap 
 * Use **run** to run the simulation
 * Use **setplot** to choose the simulation type
 * Use **display** to view nodes and plot out on a graph.
+
 ![spice_display](https://github.com/user-attachments/assets/08ebed3e-28f2-4d2c-b176-54c52e68fa4b)
 
 ## Switching Threshold Vm
@@ -39,6 +41,7 @@ This command will set the mode of the IO pins to 2 which allows them to overlap 
 * **.dc Vin 0 2.5 0.05** - looks for the input gate voltage for values from 0-2.5V at increments of 0.05V
 * DC Transfer Analysis done to find Vm
 * Transient analysis done to find propagation delay of when a pulse is applied to the CMOS.
+  
 ![spice_dynamic_sim](https://github.com/user-attachments/assets/66e3d379-47d6-4b40-8837-4c0a514bcfda)
 
 **Steps to do the transient analysis:**
@@ -48,13 +51,16 @@ This command will set the mode of the IO pins to 2 which allows them to overlap 
 4. **tran2** after the question mark
 5. **display** to see options
 6. **plot out vs time in** for replot
+   
 ![transient_analysis_spice](https://github.com/user-attachments/assets/7b0d104a-bb24-4a14-8242-c5d06ebabdae)
 
 ## Lab Steps to GitClone VSDSTD Cell Design
 1. On the openlane directory (/openlane), do **git clone https://github.com/nickson-jose/vsdstdcelldesign**
 2. Make a copy of sky130A.tech file to the vsdstd cell design directory using the **cp** command.
 3. Do **magic -T sky130A.tech sky130_inv.mag &** in order to get a visual.
+   
 ![inverter_visual](https://github.com/user-attachments/assets/9371a38c-05d7-41c4-828e-a46691b085c7)
+
 ## CMOS Fabrication Process
 1. **Select a substrate** - where the design will be fabricated on. P doped silicon substrate is most commonly used but the substrate type can vary based on the intended application and design requirements.
 2. **Create an Active Region** - grow 40nm of silicon dioxide on the substrate as an insulator. Then put 80nm of silicon nitride onto the insulator and then 1 micrometer of photoresist on top. 
@@ -129,12 +135,17 @@ Modify the **sky130_inv.ext** file as shown below.
 
 Start up NGSPICE and load the SPICE file for simulation:
 
-![ngspice_load](https://github.com/user-attachments/assets/eb8033b5-954e-4c12-b2b0-b8eae073940b)
+## Characterize Inverter using Sky130 Model Files
 
+This should happen after the command right above is typed. 
 
+![characterize_inverter1](https://github.com/user-attachments/assets/77080e92-6fe4-4a04-97ab-95cf7421fef7)
 
+![characterize_inverter2](https://github.com/user-attachments/assets/76d6761d-e63b-4bd2-8c18-52318a9fbc59)
 
+Run **plot y vs time a** to generate a graph of the transient analysis. The results are below:
 
+![ngspice_transientanalysis_plot](https://github.com/user-attachments/assets/896e49d1-66ac-4bb2-93cd-4849749595d1)
 
 
 
