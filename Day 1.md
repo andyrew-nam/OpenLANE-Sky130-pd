@@ -48,4 +48,11 @@
 5. **Routing** - interconnections between the components are done here. This is done through the usage of multiple metal layers in which each of these layers form physical wiring paths across the chip. This is defined within a Process Design Kit (PDK). 
 
 
-## OpenLANE Commands + Navigation
+## OpenLANE Basic Overview
+
+OpenLANE is an open-source toolchain that takes RTL and makes it into a chip layout file ready for manufacturing without any manual steps needed. 
+* StriVe - SoC family
+* Tuned for the SkyWater 130nm PDK
+* Run Modes:
+*   Autonomous - fully automated design flow
+*   Interactive - manual control for custom tuning
