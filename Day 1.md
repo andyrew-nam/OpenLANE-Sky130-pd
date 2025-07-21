@@ -65,3 +65,23 @@ OpenLANE is an open-source toolchain that takes RTL and makes it into a chip lay
 4. **Physical Implementation (PnR)** - automated placement/routing of components and wires, done using OpenROAD. 
  
 ![openlane_flow_stages](https://github.com/user-attachments/assets/6d34b96d-cd13-4b5b-87c4-83a0592d4ae7)
+
+**Logic Equivalence Check (LEC)** - makes sure that the netlist still performs the same function after being optimized for things like timing or clock tree insertion.
+
+**Antenna Diodes** - protects the chip during fabrication. Long wires can build up charge that damages gate layers and so the diodes drain that charge. 
+
+## Beginning to use OpenLANE
+
+Begin by opening the virtual machine and then open terminal. 
+
+1. All the files are stored in Desktop/work/tools
+2. Navigate to openlane_working_dir
+3. Go into the pdks
+4. Enter sky130A and open up libs.ref. If you do ls -ltr when in the sky130A directory, you will notice there are two files. Libs.tech contains all of the tool specific files while libs.ref contains all of the foundry related processes.
+5. Do ls -ltr while in the libs.ref directory. We will be working with sky130_fd_sc_hd.
+
+![openlane_ss1](https://github.com/user-attachments/assets/4010ec20-de47-4882-9bb4-bd25fb45f765)
+
+
+
+
