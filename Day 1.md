@@ -56,3 +56,12 @@ OpenLANE is an open-source toolchain that takes RTL and makes it into a chip lay
 * Run Modes:
   * Autonomous - fully automated design flow
   * Interactive - manual control for custom tuning
+
+### **Stages of the OpenLANE Flow**
+
+1. **Synthesis Exploration** - tries different logic synthesis strategies and generates reports on timing/area to find the best one
+2. **Design Exploration** - evaluates performance across multiple configurations and runs regression tests to catch issues.
+3. **Design for Test (DFT)** - adds test-specific logic to help check chip functionality after manufacturing. Scans chains for test access, ATPG to generate test patterns, and fault simulation to preduct possible chip failures.
+4. **Physical Implementation (PnR)** - automated placement/routing of components and wires, done using OpenROAD. 
+ 
+![openlane_flow_stages](https://github.com/user-attachments/assets/6d34b96d-cd13-4b5b-87c4-83a0592d4ae7)
