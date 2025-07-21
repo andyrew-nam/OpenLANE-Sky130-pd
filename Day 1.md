@@ -13,8 +13,28 @@
 **Foundry IPs** - Proprietary circuit blocks tied to specific manufacturing processes, only producible at certain foundries.
 
 ## Introduction to RISC-V
-* Hello
-  * Hello
+* Open-source Instruction Set Architecture (ISA) - defines how software communicates with hardware. 
+* An ISA defines the rules/instructions that a compiler must follow in order to translate high-level programming (like C) into assembly/machine code. 
+
+
+
+
+
+
+🔹 Key Features
+Modular: You can start with a small core (like for microcontrollers) and add only the features you need (e.g., floating point, vector processing).
+
+Simple and Clean: Designed to be easy to implement and understand.
+
+Scalable: Works for tiny chips up to supercomputers.
+
+🔹 Who Uses RISC-V?
+Major companies (like NVIDIA, Google, Western Digital, and Alibaba) and universities use RISC-V to build everything from embedded devices to high-performance chips.
+
+🔹 Why It’s a Game-Changer
+RISC-V is democratizing chip design—making it possible for individuals, startups, and nations to build custom hardware without relying on dominant, closed systems. It’s helping fuel a new wave of innovation in computing.
+
+
 
 ## RTL To GDSII Flow
 
