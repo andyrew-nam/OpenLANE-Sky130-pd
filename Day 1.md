@@ -1,3 +1,17 @@
+## Notable Introductory Components
+
+**Package** - The external casing that protects the chip and enables electrical connection to a circuit board.
+
+**Die** - The actual piece of silicon containing the chip’s integrated circuits.
+
+**Pads** - Metallic terminals on the die that allow electrical signals to enter/leave the chip.
+
+**Core** - The main, central processing area of the chip. 
+
+**Macro** - A pre-designed, reusable block of logic. A common example of macros are memory macros (SRAM, DRAM, etc.)
+
+**Foundry IPs** - Proprietary circuit blocks tied to specific manufacturing processes, only producible at certain foundries.
+
 ## RTL To GDSII Flow
 
 **RTL (Register Transfer Level)** - describes the logic behavior/data flow and writes the design in a hardware description language (HDL).
