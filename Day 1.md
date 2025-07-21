@@ -1,4 +1,4 @@
-## Notable Introductory Components
+## Introductory Components
 
 **Package** - The external casing that protects the chip and enables electrical connection to a circuit board.
 
