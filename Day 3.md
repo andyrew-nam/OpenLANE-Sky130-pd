@@ -196,16 +196,12 @@ We can see that for the poly.9 rule, it is violated when the resistor spacing to
 
 The two lines simply set spacing rules for the p-poly resistor + poly non-resistor and the n-poly resistor + poly non-resistor.
 
-![poly-9_tech_update](https://github.com/user-attachments/assets/86cac8ef-ab25-4144-9c10-cd963349f697)
+![poly-9_update](https://github.com/user-attachments/assets/f87deece-44e6-4971-8555-6131c4330d0f)
 
 Then in the tkcon window, type in **tech load sky130A.tech** followed by **drc check**.
 
 ## Lab Exercise to Implement Poly-Resistor Spacing to Diff and Tap
 
+An error occurs as when the tech file was modified, as the spacing between npolyres and all types of diffusion were not considered. An easy fix is changing the ***nsd** to **alldiff** as seen in the screenshot below.   
 
-
-
-
-
-
-
+![poly-9_update](https://github.com/user-attachments/assets/f87deece-44e6-4971-8555-6131c4330d0f)
