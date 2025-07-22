@@ -147,24 +147,60 @@ Run **plot y vs time a** to generate a graph of the transient analysis. The resu
 
 ![ngspice_transientanalysis_plot](https://github.com/user-attachments/assets/896e49d1-66ac-4bb2-93cd-4849749595d1)
 
+**Note**: Clicking on points on the waveform outputs an x and y value corresponding to the amount of time passed and the voltage level. 
 
+**Rise Transition** - Time it takes for the output to go from 20% of max voltage to 80% of max voltage.
 
+**Fall Transition** - Time it takes for the output to go from 80% to max voltage to 20% of max voltage. 
 
+**Fall Cell Delay** - Time it takes for output to fall to 50% and time it takes for input to rise to 50%.
 
+**Rise Cell Delay** - Time it takes for output to rise to 50% and time it takes for input to fall to 50%.
 
+## Lab Introduction to Magic Tool Options and DRC Rules
 
+**Magic Resources**: http://opencircuitdesign.com/magic/
+**DRC Rules/Syntax**: https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html#rules-periphery--page-root
 
+## Lab Introduction to Sky130 PDKs and Steps to Download Labs
 
+1. Download the lab files by doing **wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz**
+2. Extract the files by **tar xfz drc_tests.tgz**
+3. **cd drc_tests** and then **ls -al** to list contents.
 
+![openlane_ss24](https://github.com/user-attachments/assets/f9d71f22-2a12-410f-90b1-bdcc527189be)
 
+4. Open the magic tool through **magic -d XR**. It should be an empty magic prompt.
 
+![empty_magic](https://github.com/user-attachments/assets/dfa282c5-3203-4b93-a98b-30cd8623a084)
 
+## Lab Introduction to Magic and Steps to Load Sky130 Tech Rules
 
+In the empty Magic prompt, click **File** in the top left, select **Open**, and then click on **met3.mag**. Each number that appears on the screenshot below is a different rule in the Skywater PDK. 
 
+![met3-mag_magic](https://github.com/user-attachments/assets/9f5bda3b-15d5-492f-a089-84ef76d71a1b)
 
+## Lab Exercise to Fix poly.9 Error in Sky130 Tech File
 
+Go to the tkcon window of the previous section and type **load poly**. This should be what appears:
 
+![load_poly_tkcon](https://github.com/user-attachments/assets/a3e6996e-544d-488c-8a6a-5f03659e30e3)
 
+We can see that for the poly.9 rule, it is violated when the resistor spacing to poly, diffusion, or tap must be at least 0.48 um. As shown in the screenshot above, this rule isn't be followed and needs to be fixed by changing the tech file. 
+
+![poly-9_error](https://github.com/user-attachments/assets/3e6612b1-48c1-47ff-8a16-26edde7b54b7)
+
+**In order to change the tech file:**
+1. Open the sky130A.tech file.
+2. Add new rules for the spacing between the poly resistor and the poly non-resistor. Below, the highlighted lines are the two new added rules.
+
+The two lines simply set spacing rules for the p-poly resistor + poly non-resistor and the n-poly resistor + poly non-resistor.
+
+![poly-9_tech_update](https://github.com/user-attachments/assets/86cac8ef-ab25-4144-9c10-cd963349f697)
+
+Then in the tkcon window, type in **tech load sky130A.tech** followed by **drc check**.
+
+## Lab Exercise to Implement Poly-Resistor Spacing to Diff and Tap
 
 
 
