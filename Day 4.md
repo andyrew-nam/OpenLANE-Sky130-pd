@@ -7,15 +7,17 @@
 
 The format for each line is **(name) (axis) (offset) (track pitch)**
 
-Guidelines for Standard Cell Design:
+First guideline for standard cell layout:
 * Input and output ports must be on vertical and horizontal track intersections
-* Width must be on the odd multiples of the horizontal pitch, while the length must be on the odd multiples of the vertical pitch.
+
+Second guideline for standard cell layout:
+* Width must be on the odd multiples of the x (horizontal) pitch, while the length must be on the odd multiples of the y (vertical) pitch.
 
 **Press G** to enable grid and type **grid 0.46um 0.34um 0.23um 0.17um** in the tkcon window. 
 
 ![grid-tkcon](https://github.com/user-attachments/assets/d9f0c05b-268c-4f35-83c2-54925977e78f)
 
-The first guideline is satsified as the pins now lie on the intersections!
+The first guideline is satsified as the pins now lie on the intersections. The second guideline is also satisfied as the width and height is both odd. 
 
 ## Lab Steps to Convert Magic Layout to STD Cell LEF
 
