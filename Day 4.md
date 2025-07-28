@@ -51,13 +51,15 @@ Make sure your config file looks like this:
 
 ![config-tcl](https://github.com/user-attachments/assets/b75757a8-d4a8-4698-9a79-420f17881a18)
 
-### Put photos where necessary below (delete this note to self later)
-
 Then go to the OpenLANE terminal and write **prep -design designs/ci/picorv32a -tag (run name) -overwrite**
 
 Next, run **set lefs [glob $::env(DESIGN_DIR)/src/*.lef]** and then **add_lefs -src $lefs**.
 
+![pre-run-synthesis](https://github.com/user-attachments/assets/f8eb5f8b-a037-4bef-a4d8-d72eadd77f04)
+
 Finally, **run_synthesis** and make sure that sky130_vsdinv is written in the design. 
+
+
 
 ## Introduction to Delay Tables
 
@@ -127,16 +129,35 @@ We can also run **expand** in the tkcon window to more accurately see how the po
 
 ## Setup Timing Analysis and Introduction to Flip-Flop Setup Time
 
+Initially, take an ideal clock where the clock tree is not yet built. We'll do timing analysis on this ideal clock to understand basic parameters and later on, the same will be done on a real clock. 
 
+We'll first work with a single clock with these specifications: **clock frequency (F) = 1GHz, clock period (T) = 1/F = 1/GHz = 1ns**
 
+![timing-analysis](https://github.com/user-attachments/assets/18ef0f31-ca7c-4907-8594-da297b2f4df5)
 
+The setup has a launch flop and a capture flop connected by combinational logic with an ideal clock network connecting to both flops (no clock tree built yet). In the basic timing analysis, you'll begin by sending the rising edge at 0 to the launch flop and the rising edge at T to the capture flop. The timing analysis will be conducted from the time in between that. 
 
+Let's assume that the combinational logic = **theta** delay. Then, the theta delay must be less than the time period (T, 1ns). 
 
+The capture flop has many different MOSFETs and resistors inside of it. In a simplified nature, lets assume that it has two muxes inside of it like this: 
 
+![timing-analysis-capture](https://github.com/user-attachments/assets/db3b2ce6-0d78-492a-8111-6ce012b0e509)
 
+The mux delays in the capture flop will restrict your combinational delay requirement (theta) as some of the maximum alloted delay is taken up by the capture flop. This mux delay is called **setup time** as seen below:
 
+![timing-analysis-setup-time](https://github.com/user-attachments/assets/e1447f47-a964-4c43-a788-6bb9e717476c)
 
+## Introduction to Clock Jitter and Uncertainty
 
+**Clock jitter**: deviation of clock signals from their ideal periodic positions.
+
+In the image below, the yellow windows show the amount of jitter that is alloted for the clock signal before circuit failure occurs. 
+
+![timing-analysis-jitter](https://github.com/user-attachments/assets/c83ca170-6ad6-411b-84f4-2bf08b0aca12)
+
+Now, we will add that clock jitter as a variable **SU** uncertainty and consider it in our calculations. 
+
+![timing-analysis-uncertainty](https://github.com/user-attachments/assets/37cae314-b7fd-45a7-83ae-4e62b3d4f038)
 
 
 
