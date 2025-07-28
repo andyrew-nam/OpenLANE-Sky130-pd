@@ -169,18 +169,97 @@ All of this is done with single clocks though so its quite simple.
 
 ## Clock Tree Routing and Buffering using H-Tree Algorithm
 
-Clock tree synthesis is a process of trying to distribute clock signals to all sequential blocks while minimizing skew and delay. Buffers and inverters are often used here. 
+Clock tree synthesis is a process of trying to distribute clock signals to all sequential blocks while minimizing skew and delay. Skew is the difference of arrival times of a clock signal in different parts of a circuit. Ideally, skew should be as close as possible to 0. Buffers and inverters are often used here. 
 
+![cts-bad-tree](https://github.com/user-attachments/assets/4f168fe2-920e-4c6f-ba04-9ac660eb3a2e)
 
+Above, we can see an example of a poorly mapped out clock tree. The skew is going to be significantly higher considering the wire lengths from FF1 and FF2 to clk1 are drastically different, leading to possible timing errors. 
 
+In order to improve the tree, the clk1 will have a wire at the midpoint of the flipflops, from where connections will be made. Below, we can see how this would be configured. 
 
+![cts-better-tree](https://github.com/user-attachments/assets/e66b6a84-c35f-49c4-9896-9f48d85c1042)
 
+This is H-Tree routing. Essentially, calculating the distance from the clock to the destinations, finding the midpoint, then distributing it to the destinations, allowing the signal to reach all destinations at the same time (ideally). However, it is possible for signal distortion to occur (especially over long distances). This can be mitigated by adding buffers and inverters. Buffers just repeat an input signal and output it with high impedance. These clock buffers have equal rise and fall times for a constant signal propagation.
 
+Note that this analysis was done with ideal clocks, not real clocks. 
 
+## Crosstalk and Clock Net Shielding
 
+**Clock net shielding**: take all of the clock nets and shield them. This protects the clock signal from the outside environment. This prevents crosstalk. Crosstalk is when activity from one channel causes disruption with activities in a nearby channel which leads to errors. The image below shoes yellow clock nets that are shielded.
 
+![clock-net-shielding](https://github.com/user-attachments/assets/5c3b8a0c-dcbe-45a4-a85a-4b1472ebec9e)
 
+When a regular wire is next to a shield, there is a coupling capacitor which can lead to glitch. When the aggressor has any sort of switching activity, the coupling capacitor can be strong enough to affect the net adjacent to it. Below, the image shows the aggressor in red, the capacitor in the middle, and the victim net on the bottom. The glitch can cause a dip in voltage (as seen in the image below) which can lead to several errors in data propagation. 
 
+![glitch](https://github.com/user-attachments/assets/a93acfe5-3beb-4dd1-b868-fda92f0e68b9)
+
+The glitch can be fixed by shielding the nets affected by the glitch, where the shield is either VDD or VSS. Since VDD and VSS does not switch, it will prevent the affected net from switching either. 
+
+Delta delay can also happen from the coupling capacitor. It is possible for the coupling capacitor to briefly delay the signal while its trying to change from 0 to 1 or 1 to 0. This can lead to timing errors once again.
+
+![crosstalk-delta-delay](https://github.com/user-attachments/assets/6dc90b31-8531-4092-8812-9f1edba17aec)
+
+Often though, shielding all of the nets is implausible because it takes so much routing resources, and so most of the time, the clock nets are primarily shielded. 
+
+## Lab Steps to Run CTS Using TritonCTS
+
+## Lab Steps to Verify CTS Runs
+
+## Setup Timing Analysis Using Real Clocks
+
+Now, we'll be bringing clock trees to real clocks. With real clocks, the clock tree will now have buffers going into the launch flop and capture flop. We have to consider the clock delay now that occurs from the buffers in between the clock and flops. Seen below is the diagram. 
+
+![timing-analysis-real-clocks](https://github.com/user-attachments/assets/cb5a8e5c-24c6-4d35-b33f-a0941e8b045f)
+
+We can shift the edges by a value of delta1 and delta2. We also have to add back the delays of the setup time of the capture flop and the clock jitter windows. The righthand side of the equation seen below is called data required time and the left side is called data arrival time. If data arrival time is after data required time, then the resulting value is called **slack**. If slack is negative, that is not good and unexpected. Ideally, slack should always be positive or zero. 
+
+So, the final timing analysis diagram is this:
+
+![timing-analysis-fina](https://github.com/user-attachments/assets/6709c6c2-59ef-49ba-9150-bf7c932b9c38)
+
+Now, lets take a look at hold timing analysis. Previously, we had only done setup timing analysis. Hold timing analysis is different as the edge at 0 will be sent to the launch flop to undergo combinational logic, and the edge at 0 will also be sent to the capture flop to check for hold condition.
+
+The hold condition is that the combinational delay should be greater than the hold delay of the capture flop. 
+
+![hold-timing-analysis1](https://github.com/user-attachments/assets/42c539b0-a6a6-40a8-846e-949672b70057)
+
+The hold time of the capture flop is the amount of time it takes for mux2 to send an output. 
+
+![hta-hold-time](https://github.com/user-attachments/assets/cd252ee3-5f39-49d6-9520-b08749598d99)
+
+So, the capture flop is essentially telling the launch flop to not send any new data until the capture flop can send the existing data outside of itself. 
+
+If again, you add clock buffers once again (like in a real circuit), you have to change the equation slightly to this:
+
+![hta-buffers](https://github.com/user-attachments/assets/b1788d16-d1e7-48b5-b2f9-fada649661ba)
+
+## Hold Timing Analysis Using Real Clocks
+
+Technically, we can ignore uncertainty (jitter) as the delay for the launch flop and the capture flop will be the same. 
+
+Notice that for hold analysis, the data arrival time should be greater than the data required time (opposite to setup timing analysis). 
+
+![hta-slack](https://github.com/user-attachments/assets/686fb459-ed49-42bf-a874-4d7bf29941fe)
+
+Now, lets make this diagram more realistic (visually). Skew is launch clock network delay minus the capture clock network delay. 
+
+![hta-skew](https://github.com/user-attachments/assets/9a1e9554-3700-4eaf-a430-38eda1bf1b02)
+
+Then, you also have the setup time equation: 
+
+![hta-setup](https://github.com/user-attachments/assets/45cdf002-d27d-433c-98e3-5008fc2ba5a1)
+
+And finally, here is the final hold time equation: 
+
+![hta-hold-equation](https://github.com/user-attachments/assets/e0b743a8-6f83-4c3f-a7ee-58bc0e8d31ca)
+
+There are a few other components in real circuits that can further complicate timing but this is a generalized, simple flow. 
+
+## Lab Steps to Analyze Timing with Real Clocks Using OpenSTA
+
+## Lab Steps to Execute OpenSTA with Right Timing Libraries and CTS Assignment
+
+## Lab Steps to Observe Impact of Bigger CTS Buffers on Setup and Hold Timing
 
 
 
