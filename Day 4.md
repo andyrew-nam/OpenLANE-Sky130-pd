@@ -159,6 +159,34 @@ Now, we will add that clock jitter as a variable **SU** uncertainty and consider
 
 ![timing-analysis-uncertainty](https://github.com/user-attachments/assets/37cae314-b7fd-45a7-83ae-4e62b3d4f038)
 
+All of this is done with single clocks though so its quite simple. 
+
+## Lab Steps to Configure OpenSTA for Post-Synth Timing Analysis
+
+## Lab Steps to Optimize Synthesis to Reduce Setup Violations
+
+## Lab Steps to do Basic Timing ECO
+
+## Clock Tree Routing and Buffering using H-Tree Algorithm
+
+Clock tree synthesis is a process of trying to distribute clock signals to all sequential blocks while minimizing skew and delay. Buffers and inverters are often used here. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
