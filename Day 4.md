@@ -47,11 +47,85 @@ Now copy all of the liberty files from the vsdstdcelldesign **libs** directory i
 
 ![copy-libfiles](https://github.com/user-attachments/assets/e1a8abeb-5620-4339-b4c7-bf243cbbd9f1)
 
+Make sure your config file looks like this: 
+
+![config-tcl](https://github.com/user-attachments/assets/b75757a8-d4a8-4698-9a79-420f17881a18)
+
+### Put photos where necessary below (delete this note to self later)
+
+Then go to the OpenLANE terminal and write **prep -design designs/ci/picorv32a -tag (run name) -overwrite**
+
+Next, run **set lefs [glob $::env(DESIGN_DIR)/src/*.lef]** and then **add_lefs -src $lefs**.
+
+Finally, **run_synthesis** and make sure that sky130_vsdinv is written in the design. 
+
+## Introduction to Delay Tables
+
+The enable pin heavily affects the clk in logic gates. In an AND gate, if the enable pin is 1, the clk will be propagated to the rest of the circuit (this is the only case). In an OR gate, if the enable pin is 0, the clk will be propagated to the rest of the circuit (this is the only case). This is advantageous for clock gating (a common power-saving technique) because if you gate the clock, then you can prevent unnecessary clocking of modules when they are not currently being used. 
+
+![buffer-cts](https://github.com/user-attachments/assets/ca79ff10-3797-45c8-a59f-8a7469e56b41)
+
+In the past, we've made generalized assumptions about clock trees present in the image above. Ideally, buffers on different levels should have differing values for capacitance and load because as long as the buffers on the same level have the same characteristics, the delay will remain constant. In reality, the capacitance and load varies and the input transition varies. 
+
+## Delay Table Usage Part 1
+
+![power-aware-cts](https://github.com/user-attachments/assets/27b4f7e6-e6a5-4586-8f30-f4231540f932)
 
 
+* Delay tables help visualize this by being a two-dimensional table with one axis representing input transition and the other axis representing load output. 
+* The intersections of these axises are the calculated delay. Every time of gate will have their own delay table (AND gate, OR gate, XOR gate, etc.).
+* The PMOS and NMOS sizes will be corresponding to the label (causing a varying resistance and varying RC constant).
+* Each and every size of a buffer type will have its own exclusive delay table.
+* It is possible to build an equation from a given set of data in a delay table and use it to estimate the rest of the values in the table.
 
+## Delay Table Usage Part 2
 
+![power-aware-cts](https://github.com/user-attachments/assets/27b4f7e6-e6a5-4586-8f30-f4231540f932)
 
+* In the image above, since the buffers in level 2 have the same input transition times, capacitative loads, and sizes, they have equal delays.
+* The skew value is calculated by looking at the difference of delay of buffers at the same level.
+* Negative skew can be extremely bad when designs are scaled up to large sizes with large timing conflicts (as even a small negative skew can stack up) --> must be caught in early clock tree creation
+
+## Lab Steps to Configure Synthesis Settings to Fix Slack and Include VSDINV
+
+**ADD SCREENSHOTS LATER**
+
+1. Look at the synthesis results and check the strategy by doing **echo $::env(SYNTH_STRATEGY)** in the Openlane terminal. By setting the synth strategy to 1 (through **set ::env(SYNTH_STRATEGY) 1**, the area should increase but the timing should also improve. SYNTH_STRATEGY value can range from 0 to 3 (inclusive) and as the value gets higher, timing is further optimized but area increases the most as well.
+2. Check SYNTH_BUFFERING and make sure it is 1 (0 means disabled, 1 means enabled). If it is 0, use the set command to set it to 1. When SYNTH_BUFFERING is 1, that means that the buffer will be used to reduce delay in wires.
+3. Make sure SYNTH_SIZING is 1 and set it to 1 if necessary. When SYNTH_SIZING is 1, that means that all cell sizes will be modified to further optimize timing.
+4. Make sure echoing SYNTH_DRIVING_CELL gives the same cell that has higher drive strength.
+5. **run_synthesis** in the Openlane terminal once again and slack should be reduced.
+
+The chip area should naturally increase as the SYNTH_STRATEGY was changed from 0 to 1. Slack should reduce though (check at the near bottom of the produced netlist). 
+
+Now **run_floorplan** in the Openlane terminal. If it comes up with some errors, run these instead:
+
+**init_floorplan**
+**place_io**
+**global_placement_or**
+**detailed_placement**
+**tap_decap_or**
+**detailed_placement**
+
+Then your results should be found here:
+
+**ADD SCREENSHOT OF PWD**
+
+Then in a normal terminal (not Openlane environment), run **magic -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def** which should open up this:
+
+**ADD SCREENSHOT HERE**
+
+If we zoom in, we can see our custom cell:
+
+**ADD ZOOMED IN SS HERE**
+
+The overlap is to ensure the power and ground rails are shared between cells.
+
+We can also run **expand** in the tkcon window to more accurately see how the power/ground overlap the power/ground pins of touching cells. 
+
+**ADD SCREENSHOT OF EXPANDED MAGIC**
+
+## Setup Timing Analysis and Introduction to Flip-Flop Setup Time
 
 
 
